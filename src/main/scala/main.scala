@@ -42,12 +42,22 @@ object main {
    println("Enter string:")
    val text: String = StdIn.readLine()
 
-  //@tailrec
   def reverse(s: String): String = {  // рекурсивная
     if (s.isEmpty) ""
     else reverse(s.tail) + s.head
   }
 
+  def tailReverse(str: String): String = {
+    @tailrec
+    def reverse(str: String, r: String): String =
+    {
+      str match{
+        case "" => r
+        case s => reverse(s.tail, s.head+r)
+      }
+    }
+    reverse(str, "")
+  }
 
   def reverse2(s: String) : String =
     (for(i <- s.length - 1 to 0 by -1) yield s(i)).mkString // рекурсия
@@ -56,6 +66,7 @@ object main {
       println("Result");
       println(reverse(text))
       println(reverse2(text))
+      println(tailReverse(text))
     }
 
 }
